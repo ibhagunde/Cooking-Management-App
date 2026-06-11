@@ -1,5 +1,3 @@
-# Cooking-Management-App
-
 # Cooking Management App
 
 ## Team Members
