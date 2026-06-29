@@ -1,12 +1,39 @@
-function login() {
-    const user = document.getElementById("username").value;
-    const pass = document.getElementById("password").value;
+async function login() {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    const message = document.getElementById("message");
 
-    if (user === "" || pass === "") {
-        document.getElementById("message").innerText = "Please fill out all fields.";
+    if (!email || !password) {
+        message.innerText = "Please fill out all fields.";
         return;
     }
 
-    // Placeholder logic
-    document.getElementById("message").innerText = "Login attempt sent.";
+    try {
+        const response = await fetch("http://localhost:3000/auth/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                email,
+                password
+            })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            message.style.color = "green";
+            message.innerText = "Login successful!";
+            console.log(data);
+        } else {
+            message.style.color = "red";
+            message.innerText = data.error;
+        }
+
+    } catch (error) {
+        console.error(error);
+        message.style.color = "red";
+        message.innerText = "Unable to connect to server.";
+    }
 }

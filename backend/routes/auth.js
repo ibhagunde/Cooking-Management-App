@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const db = require("../db/database");
 
-// REGISTER USER
+//user registration
 router.post("/register", (req, res) => {
     try {
         const { username, email, password } = req.body;

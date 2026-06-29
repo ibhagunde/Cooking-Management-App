@@ -1,7 +1,11 @@
 const express = require("express");
-
 const app = express();
+
 const PORT = 3000;
+
+//enable cors (Cross-Origin Resource Sharing) to allow requests from frontend
+const cors = require("cors");
+app.use(cors());
 
 // Allow the server to read JSON from requests
 app.use(express.json());
