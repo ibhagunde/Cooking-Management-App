@@ -6,6 +6,9 @@ const PORT = 3000;
 // Allow the server to read JSON from requests
 app.use(express.json());
 
+const authRoutes = require("./routes/auth");
+app.use("/auth", authRoutes);
+
 // Import recipe routes
 const recipeRoutes = require("./routes/recipes");
 
