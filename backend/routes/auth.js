@@ -59,7 +59,8 @@ router.post("/login", (req, res) => {
         res.json({
             message: "Login successful",
             user_id: user.user_id,
-            username: user.username
+            username: user.username,
+            token: "demo-token" //placeholder for JWT or session token, to be implemented later
         });
 
     } catch (error) {
