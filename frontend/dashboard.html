@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="dashboard.css">
+    <title>Dashboard</title>
+</head>
+<body>
+    <div class="container">
+        <h2>Hello, User!</h2>
+
+        <div class="quick-access">
+            <button onclick="goToMealPlanner()">Meal Planner</button>
+            <button onclick="goToRecipes()">Recipes</button>
+            <button onclick="goToGrocery()">Grocery List</button>
+            <button onclick="goToProfile()">Profile</button>
+        </div>
+
+        <h3>Recent Recipes</h3>
+        <ul id="recent">
+            <li>Chicken Alfredo</li>
+            <li>Pancakes</li>
+        </ul>
+
+        <div class="bottom-nav">
+            <span onclick="goHome()">Home</span>
+            <span onclick="goToRecipes()">Recipes</span>
+            <span onclick="goToProfile()">Profile</span>
+        </div>
+    </div>
+
+    <script src="dashboard.js"></script>
+</body>
+</html>
