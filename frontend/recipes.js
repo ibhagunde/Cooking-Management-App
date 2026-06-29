@@ -1,7 +1,18 @@
-let recipes = [
-    { title: "Chicken Alfredo", category: "Dinner" },
-    { title: "Pancakes", category: "Breakfast" }
-];
+let recipes = [];
+
+async function loadRecipes() {
+    try {
+        const response = await fetch("http://localhost:3000/recipes");
+        recipes = await response.json();
+
+        renderRecipes();
+
+    } catch (error) {
+        console.error(error);
+        document.getElementById("message").innerText =
+            "Failed to load recipes.";
+    }
+}
 
 function renderRecipes() {
     const list = document.getElementById("recipeList");
@@ -16,7 +27,7 @@ function renderRecipes() {
             <p>Category: ${recipe.category}</p>
 
             <div class="actions">
-                <button onclick="viewRecipe(${index})">View</button>
+                <button onclick="viewRecipe(${recipe.recipe_id})">View</button>
                 <button onclick="editRecipe(${index})">Edit</button>
                 <button class="delete-btn" onclick="deleteRecipe(${index})">Delete</button>
             </div>
@@ -30,8 +41,8 @@ function goToAddRecipe() {
     window.location.href = "recipe.html";
 }
 
-function viewRecipe(index) {
-    alert(`Viewing: ${recipes[index].title}`);
+function viewRecipe(recipeId) {
+    window.location.href = `recipedetails.html?id=${recipeId}`;
 }
 
 function editRecipe(index) {
@@ -43,24 +54,70 @@ function editRecipe(index) {
     }
 }
 
-function deleteRecipe(index) {
-    if (confirm("Delete this recipe?")) {
-        recipes.splice(index, 1);
-        renderRecipes();
-        document.getElementById("message").innerText = "Recipe deleted.";
+async function deleteRecipe(index) {
+
+    if (!confirm("Delete this recipe?")) return;
+
+    try {
+
+        const recipe = recipes[index];
+
+        const response = await fetch(
+            `http://localhost:3000/recipes/${recipe.recipe_id}`,
+            {
+                method: "DELETE"
+            }
+        );
+
+        const data = await response.json();
+
+        if (response.ok) {
+
+            document.getElementById("message").innerText =
+                data.message;
+
+            loadRecipes();
+
+        } else {
+
+            document.getElementById("message").innerText =
+                data.error;
+
+        }
+
+    } catch (error) {
+
+        console.error(error);
+
     }
+
 }
 
 /* ⭐ SEARCH BAR UI FUNCTIONALITY ⭐ */
-function searchRecipes() {
-    const query = document.getElementById("searchInput").value.toLowerCase();
+async function searchRecipes() {
 
-    const filtered = recipes.filter(recipe =>
-        recipe.title.toLowerCase().includes(query) ||
-        recipe.category.toLowerCase().includes(query)
-    );
+    const query =
+        document.getElementById("searchInput").value;
 
-    renderFilteredRecipes(filtered);
+    try {
+
+        const response = await fetch(
+            `http://localhost:3000/recipes?search=${query}`
+        );
+
+        const filtered =
+            await response.json();
+
+        recipes = filtered;
+
+        renderRecipes();
+
+    } catch (error) {
+
+        console.error(error);
+
+    }
+
 }
 
 function renderFilteredRecipes(list) {
@@ -76,7 +133,7 @@ function renderFilteredRecipes(list) {
             <p>Category: ${recipe.category}</p>
 
             <div class="actions">
-                <button onclick="viewRecipe(${index})">View</button>
+                <button onclick="viewRecipe(${recipe.recipe_id})">View</button>
                 <button onclick="editRecipe(${index})">Edit</button>
                 <button class="delete-btn" onclick="deleteRecipe(${index})">Delete</button>
             </div>
@@ -86,5 +143,5 @@ function renderFilteredRecipes(list) {
     });
 }
 
-renderRecipes();
+loadRecipes();
 

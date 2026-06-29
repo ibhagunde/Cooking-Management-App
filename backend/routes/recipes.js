@@ -10,9 +10,15 @@ router.get("/", (req, res) => {
         let recipes;
 
         if (search) {
-            recipes = db.prepare(
-                "SELECT * FROM Recipes WHERE title LIKE ?"
-            ).all(`%${search}%`);
+            recipes = db.prepare(`
+                SELECT *
+                FROM Recipes
+                WHERE title LIKE ?
+                OR category LIKE ?
+            `).all(
+                `%${search}%`,
+                `%${search}%`
+            );
 
         } else if (category) {
             recipes = db.prepare(
