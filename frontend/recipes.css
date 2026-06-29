@@ -1,0 +1,84 @@
+body {
+    font-family: Arial;
+    background: #f2f2f2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    background: white;
+    padding: 20px;
+    width: 420px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px #ccc;
+    text-align: center;
+}
+
+/* 🔍 Search Bar UI */
+#searchInput {
+    width: 90%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.add-btn {
+    background: #4CAF50;
+    color: white;
+    padding: 10px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 15px;
+}
+
+.add-btn:hover {
+    background: #45A049;
+}
+
+.recipe-card {
+    background: #fafafa;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.recipe-card h3 {
+    margin: 0;
+}
+
+.actions {
+    margin-top: 10px;
+}
+
+.actions button {
+    background: #2196F3;
+    color: white;
+    border: none;
+    padding: 6px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+.actions button:hover {
+    background: #1976D2;
+}
+
+.delete-btn {
+    background: #e53935;
+}
+
+.delete-btn:hover {
+    background: #c62828;
+}
+
+#message {
+    margin-top: 10px;
+    color: green;
+}
