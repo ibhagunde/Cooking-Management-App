@@ -73,8 +73,12 @@ async function deleteRecipe(index) {
 
         if (response.ok) {
 
-            document.getElementById("message").innerText =
-                data.message;
+            const msg = document.getElementById("message");
+            msg.innerText = data.message;
+
+            setTimeout(() => {
+                msg.innerText = "";
+            }, 2000);
 
             loadRecipes();
 

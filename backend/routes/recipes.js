@@ -27,7 +27,7 @@ router.get("/", (req, res) => {
 
         } else {
             recipes = db.prepare(
-                "SELECT * FROM Recipes"
+                "SELECT * FROM Recipes ORDER BY recipe_id DESC"
             ).all();
         }
 
