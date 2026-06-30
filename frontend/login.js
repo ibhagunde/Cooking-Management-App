@@ -26,7 +26,13 @@ async function login() {
             message.style.color = "green";
             message.innerText = "Login successful!";
             console.log(data);
-        } else {
+
+            // Wait 1 second, then go to the dashboard
+            setTimeout(() => {
+                window.location.href = "dashboard.html";
+            }, 1000);
+        } 
+        else {
             message.style.color = "red";
             message.innerText = data.error;
         }

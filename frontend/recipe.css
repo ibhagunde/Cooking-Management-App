@@ -3,7 +3,7 @@ body {
     font-family: Arial;
     background: #f2f2f2;
     display: flex;
-    justify-content: center;
+    justify-content: center;    
     align-items: center;
     height: 100vh;
 }
@@ -46,4 +46,13 @@ button:hover {
 #message {
     margin-top: 10px;
     color: red;
+}
+
+.back-btn {
+    background: #757575;
+    margin-top: 10px;
+}
+
+.back-btn:hover {
+    background: #616161;
 }

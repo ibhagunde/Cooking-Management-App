@@ -41,6 +41,38 @@ router.get("/", (req, res) => {
     }
 });
 
+//get recipe details by id
+router.get("/:id", (req, res) => {
+
+    try {
+
+        const { id } = req.params;
+
+        const recipe = db.prepare(
+            "SELECT * FROM Recipes WHERE recipe_id = ?"
+        ).get(id);
+
+        if (!recipe) {
+            return res.status(404).json({
+                error: "Recipe not found."
+            });
+        }
+
+        res.json(recipe);
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        res.status(500).json({
+            error: "Failed to retrieve recipe."
+        });
+
+    }
+
+});
 
 router.put("/:id", (req, res) => {
     try {
