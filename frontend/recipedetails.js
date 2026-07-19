@@ -36,4 +36,47 @@ async function loadRecipe() {
 
 }
 
+async function addToGroceryList() {
+
+    // Get the ingredients currently displayed
+    const ingredientText =
+        document.getElementById("ingredients").innerText;
+
+    // Split them by commas
+    const ingredients = ingredientText
+        .split(",")
+        .map(item => item.trim())
+        .filter(item => item !== "");
+
+    try {
+
+        const response = await fetch(
+            "http://localhost:3000/grocery",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    ingredients: ingredients
+                })
+            }
+        );
+
+        const data = await response.json();
+
+        alert(data.message);
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        alert("Unable to add ingredients.");
+
+    }
+
+}
+
 loadRecipe();

@@ -16,8 +16,14 @@ app.use("/auth", authRoutes);
 // Import recipe routes
 const recipeRoutes = require("./routes/recipes");
 
+const mealPlannerRoutes = require("./routes/mealplanner"); //importing meal planner routes
+app.use("/mealplanner", mealPlannerRoutes); //using meal planner routes
+
 // Any request starting with /recipes goes to recipes.js
 app.use("/recipes", recipeRoutes);
+
+const groceryRoutes = require("./routes/grocery");
+app.use("/grocery", groceryRoutes); //using grocery routes
 
 // Test route
 app.get("/", (req, res) => {

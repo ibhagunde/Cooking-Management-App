@@ -1,75 +1,132 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../db/database");
+const bcrypt = require("bcrypt");
 
-//user registration
-router.post("/register", (req, res) => {
+//user registration route
+router.post("/register", async (req, res) => {
+
     try {
+
         const { username, email, password } = req.body;
 
-        // basic validation
+        // Basic validation
         if (!username || !email || !password) {
+
             return res.status(400).json({
                 error: "All fields are required"
             });
+
         }
 
+        //check if email already exists
+        const existingUser = db.prepare(
+            "SELECT * FROM Users WHERE email = ?"
+        ).get(email);
+
+        if (existingUser) {
+
+            return res.status(409).json({
+                error: "Email already registered"
+            });
+
+        }
+
+        //hash password
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        //insert new user into database
         const statement = db.prepare(`
             INSERT INTO Users (username, email, password)
             VALUES (?, ?, ?)
         `);
 
-        const result = statement.run(username, email, password);
+        const result = statement.run(
+            username,
+            email,
+            hashedPassword
+        );
 
         res.status(201).json({
             message: "User registered successfully",
             user_id: result.lastInsertRowid
         });
 
-    } catch (error) {
+    }
+
+    catch (error) {
+
         console.error(error);
 
         res.status(500).json({
             error: "Failed to register user"
         });
+
     }
+
 });
 
-//user login
-router.post("/login", (req, res) => {
+//user login route
+router.post("/login", async (req, res) => {
+
     try {
+
         const { email, password } = req.body;
 
         if (!email || !password) {
+
             return res.status(400).json({
                 error: "Email and password are required"
             });
+
         }
 
+        //find user by email
         const user = db.prepare(
-            "SELECT * FROM Users WHERE email = ? AND password = ?"
-        ).get(email, password);
+            "SELECT * FROM Users WHERE email = ?"
+        ).get(email);
 
         if (!user) {
+
             return res.status(401).json({
                 error: "Invalid credentials"
             });
+
+        }
+
+        //compare entered password with hashed password
+        const validPassword = await bcrypt.compare(
+            password,
+            user.password
+        );
+
+        if (!validPassword) {
+
+            return res.status(401).json({
+                error: "Invalid credentials"
+            });
+
         }
 
         res.json({
             message: "Login successful",
             user_id: user.user_id,
             username: user.username,
-            token: "demo-token" //placeholder for JWT or session token, to be implemented later
+            token: "demo-token" //to be replaced during session handling implementation
         });
 
-    } catch (error) {
+    }
+
+    catch (error) {
+
         console.error(error);
 
         res.status(500).json({
             error: "Login failed"
         });
+
     }
+
 });
 
 module.exports = router;

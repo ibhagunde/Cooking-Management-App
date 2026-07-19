@@ -1,49 +1,161 @@
 let items = [];
 
+async function loadItems() {
+
+    try {
+
+        const response = await fetch(
+            "http://localhost:3000/grocery"
+        );
+
+        items = await response.json();
+
+        renderList();
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+    }
+
+}
+
 function renderList() {
+
     const list = document.getElementById("list");
+
     list.innerHTML = "";
 
-    items.forEach((item, index) => {
+    items.forEach(item => {
+
         const div = document.createElement("div");
+
         div.className = "item";
 
         div.innerHTML = `
             <div>
-                <input type="checkbox" ${item.checked ? "checked" : ""} onclick="toggleItem(${index})">
-                <span>${item.name}</span>
+
+                <input
+                    type="checkbox"
+                    ${item.purchased ? "checked" : ""}
+                    onclick="toggleItem(${item.item_id})">
+
+                <span>${item.item_name}</span>
+
             </div>
-            <button class="edit-btn" onclick="editItem(${index})">Edit</button>
+
+            <button
+                class="edit-btn"
+                onclick="deleteItem(${item.item_id})">
+
+                Delete
+
+            </button>
         `;
 
         list.appendChild(div);
+
     });
+
 }
 
-function addItem() {
-    const newItem = document.getElementById("newItem").value.trim();
-    const msg = document.getElementById("message");
+async function addItem() {
 
-    if (!newItem) {
-        msg.innerText = "Enter an item.";
-        return;
+    const newItem =
+        document.getElementById("newItem").value.trim();
+
+    if (!newItem) return;
+
+    try {
+
+        await fetch(
+            "http://localhost:3000/grocery",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    ingredients: [newItem]
+                })
+            }
+        );
+
+        document.getElementById("newItem").value = "";
+
+        loadItems();
+
     }
 
-    items.push({ name: newItem, checked: false });
-    document.getElementById("newItem").value = "";
-    msg.innerText = "";
-    renderList();
-}
+    catch (error) {
 
-function toggleItem(index) {
-    items[index].checked = !items[index].checked;
-    renderList();
-}
+        console.error(error);
 
-function editItem(index) {
-    const newName = prompt("Edit item:", items[index].name);
-    if (newName !== null && newName.trim() !== "") {
-        items[index].name = newName.trim();
-        renderList();
     }
+
 }
+
+async function toggleItem(id) {
+
+    try {
+
+        // Find the current item
+        const item = items.find(
+            item => item.item_id === id
+        );
+
+        const response = await fetch(
+            `http://localhost:3000/grocery/${id}`,
+            {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    purchased: item.purchased ? 0 : 1
+                })
+            }
+        );
+
+        if (response.ok) {
+
+            loadItems();
+
+        }
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+    }
+
+}
+
+async function deleteItem(id) {
+
+    try {
+
+        await fetch(
+            `http://localhost:3000/grocery/${id}`,
+            {
+                method: "DELETE"
+            }
+        );
+
+        loadItems();
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+    }
+
+}
+
+loadItems();
