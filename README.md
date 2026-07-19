@@ -1,6 +1,6 @@
 # Cooking Management App
 
-## Team Members
+## Team Members - Group 11
 - Ishani Bhagunde
 - Oluwaseun Okuneye
 - Falis Gaal
