@@ -108,11 +108,15 @@ router.post("/login", async (req, res) => {
 
         }
 
+        req.session.user = {
+        user_id: user.user_id,
+        username: user.username
+        };
+
         res.json({
             message: "Login successful",
             user_id: user.user_id,
-            username: user.username,
-            token: "demo-token" //to be replaced during session handling implementation
+            username: user.username
         });
 
     }
@@ -126,6 +130,49 @@ router.post("/login", async (req, res) => {
         });
 
     }
+
+});
+
+//session route to check if user is logged in
+router.get("/session", (req, res) => {
+
+    if (req.session.user) {
+
+        res.json({
+            loggedIn: true,
+            user: req.session.user
+        });
+
+    }
+
+    else {
+
+        res.json({
+            loggedIn: false
+        });
+
+    }
+
+});
+
+//logout route
+router.post("/logout", (req, res) => {
+
+    req.session.destroy((err) => {
+
+        if (err) {
+
+            return res.status(500).json({
+                error: "Failed to logout"
+            });
+
+        }
+
+        res.json({
+            message: "Logout successful"
+        });
+
+    });
 
 });
 

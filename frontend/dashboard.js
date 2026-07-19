@@ -1,3 +1,40 @@
+
+//check if user is logged in when the page loads
+async function checkSession() { 
+
+    try {
+
+        const response = await fetch(
+            "http://localhost:3000/auth/session",
+            {
+                credentials: "include"
+            }
+        );
+
+        const data = await response.json();
+
+        if (!data.loggedIn) {
+
+            window.location.href = "login.html";
+
+        }
+
+        else {
+
+            console.log("Logged in as:", data.user.username);
+
+        }
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+    }
+
+}
+
 async function loadRecentRecipes() {
 
     try {
@@ -50,4 +87,33 @@ function goHome() {
     window.location.href = "dashboard.html";
 }
 
+async function logout() {
+
+    try {
+
+        const response = await fetch(
+            "http://localhost:3000/auth/logout",
+            {
+                method: "POST",
+                credentials: "include"
+            }
+        );
+
+        const data = await response.json();
+
+        console.log(data);
+
+        window.location.href = "login.html";
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+    }
+
+}
+
+checkSession();
 loadRecentRecipes();
