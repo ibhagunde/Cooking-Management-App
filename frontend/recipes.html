@@ -8,14 +8,15 @@
     <div class="container">
         <h2>Recipes</h2>
 
-        <!-- 🔍 Search Bar UI goes RIGHT HERE -->
-        <input type="text" id="searchInput" placeholder="Search recipes..." oninput="searchRecipes()">
+        <input type="text" id="searchInput" placeholder="Search or filter recipes..." oninput="searchRecipes()">
 
         <button class="add-btn" onclick="goToAddRecipe()">Add Recipe</button>
 
         <div id="recipeList"></div>
 
         <p id="message"></p>
+
+        <button class="back-btn" onclick="goBack()">Back to Dashboard</button>
     </div>
 
     <script src="recipes.js"></script>

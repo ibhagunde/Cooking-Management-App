@@ -158,4 +158,8 @@ async function deleteItem(id) {
 
 }
 
+function goBack() {
+    window.location.href = "dashboard.html";
+}
+
 loadItems();

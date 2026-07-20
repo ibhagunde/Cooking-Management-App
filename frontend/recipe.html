@@ -8,6 +8,19 @@
     <div class="container">
         <h2>Add New Recipe</h2>
 
+        <div class="import-section">
+
+            <input 
+                type="text" 
+                id="recipeUrl" 
+                placeholder="Paste recipe URL">
+
+            <button onclick="importRecipe()">
+                Import Recipe
+            </button>
+
+        </div>
+
         <input type="text" id="title" placeholder="Recipe Title">
         <textarea id="ingredients" placeholder="Ingredients (comma separated)"></textarea>
         <textarea id="instructions" placeholder="Instructions"></textarea>
@@ -29,6 +42,7 @@
         <p id="message"></p>
     </div>
 
+    <script src="auth-check.js"></script>
     <script src="recipe.js"></script>
 </body>
 </html>

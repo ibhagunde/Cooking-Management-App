@@ -97,7 +97,6 @@ async function deleteRecipe(index) {
 
 }
 
-/* ⭐ SEARCH BAR UI FUNCTIONALITY ⭐ */
 async function searchRecipes() {
 
     const query =
@@ -145,6 +144,10 @@ function renderFilteredRecipes(list) {
 
         recipeList.appendChild(card);
     });
+}
+
+function goBack() {
+    window.location.href = "dashboard.html";
 }
 
 loadRecipes();

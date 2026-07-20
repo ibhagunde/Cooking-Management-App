@@ -15,6 +15,10 @@ app.use(cors({
 // Allow the server to read JSON from requests
 app.use(express.json());
 
+//Import the importrecipe routes
+const importRecipeRoutes = require("./routes/importrecipe");
+app.use("/importrecipe", importRecipeRoutes);
+
 app.use(
     session({
         secret: "recipe-management-secret",

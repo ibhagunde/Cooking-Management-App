@@ -199,4 +199,8 @@ router.delete("/:id", (req, res) => {
     }
 });
 
+function goBack() {
+    window.location.href = "dashboard.html";
+}
+
 module.exports = router;

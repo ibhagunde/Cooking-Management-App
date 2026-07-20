@@ -7,26 +7,71 @@
 
 <body>
 
-    <div class="container">
+<div class="container">
 
-        <h2 id="title">Loading...</h2>
+    <div class="recipe-header">
 
-        <p><strong>Category:</strong> <span id="category"></span></p>
+        <h1 id="title">Loading...</h1>
 
-        <p><strong>Description:</strong></p>
-        <p id="description"></p>
+    <div class="card description-card">
 
-        <p><strong>Ingredients:</strong></p>
-        <p id="ingredients"></p>
+        <h3>Recipe Info</h3>
 
-        <button onclick="addToGroceryList()">
+        <p>
+            <strong>Category:</strong>
+            <span id="category-info"></span>
+        </p>
+
+        <p>
+            <strong>Prep Time:</strong>
+            <span id="prep-time"></span>
+        </p>
+
+        <p>
+            <strong>Cook Time:</strong>
+            <span id="cook-time"></span>
+        </p>
+
+    </div>
+
+
+    <div class="recipe-grid">
+
+        <div class="card">
+
+            <h3>Ingredients</h3>
+
+            <ul id="ingredients"></ul>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>Instructions</h3>
+
+            <ol id="instructions"></ol>
+
+        </div>
+
+    </div>
+
+
+    <div class="buttons">
+
+        <button class="grocery-btn" onclick="addToGroceryList()">
             Add to Grocery List
         </button>
 
-        <p><strong>Instructions:</strong></p>
-        <p id="instructions"></p>
+        <button class="back-btn" onclick="history.back()">
+            ← Back
+        </button>
 
-        <button onclick="history.back()">← Back</button>
+    </div>
+
+</div>
+
+</div>
 
     </div>
 

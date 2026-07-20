@@ -155,6 +155,35 @@ router.get("/session", (req, res) => {
 
 });
 
+//get current logged-in user's profile
+router.get("/profile", (req, res) => {
+
+    if (!req.session.user) {
+
+        return res.status(401).json({
+            error: "Not logged in"
+        });
+
+    }
+
+    const user = db.prepare(`
+        SELECT username, email
+        FROM Users
+        WHERE user_id = ?
+    `).get(req.session.user.user_id);
+
+    if (!user) {
+
+        return res.status(404).json({
+            error: "User not found"
+        });
+
+    }
+
+    res.json(user);
+
+});
+
 //logout route
 router.post("/logout", (req, res) => {
 

@@ -1,3 +1,81 @@
+async function importRecipe() {
+
+    const url = document.getElementById("recipeUrl").value.trim();
+
+    const msg = document.getElementById("message");
+    msg.style.color = "black";
+    msg.innerText = "Importing recipe...";
+
+    if (!url) {
+
+        msg.style.color = "red";
+        msg.innerText = "Please enter a recipe URL.";
+        return;
+
+    }
+
+
+    try {
+
+        const response = await fetch(
+            "http://localhost:3000/importRecipe",
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({
+                    url: url
+                })
+            }
+        );
+
+
+        const data = await response.json();
+
+
+        if (response.ok) {
+
+            document.getElementById("title").value =
+                data.title || "";
+
+
+            document.getElementById("ingredients").value =
+                formatIngredients(data.ingredients);
+
+
+            document.getElementById("instructions").value =
+                formatInstructions(data.instructions);
+
+
+            msg.style.color = "green";
+            msg.innerText = "Recipe imported! Review and save.";
+
+        }
+
+        else {
+
+            msg.style.color = "red";
+            msg.innerText = data.error;
+
+        }
+
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        msg.style.color = "red";
+        msg.innerText = "Unable to import recipe.";
+
+    }
+
+}
+
 async function saveRecipe() {
 
     const title = document.getElementById("title").value.trim();
@@ -79,4 +157,35 @@ async function saveRecipe() {
 
 function goBack() {
     window.location.href = "recipes.html";
+}
+
+function formatIngredients(ingredients) {
+
+    if (!ingredients) {
+        return "";
+    }
+
+    return ingredients.join(", ");
+
+}
+
+
+function formatInstructions(instructions) {
+
+    if (!instructions) {
+        return "";
+    }
+
+
+    if (typeof instructions === "string") {
+
+        return instructions;
+
+    }
+
+
+    return instructions
+        .map(step => step.text)
+        .join("\n\n");
+
 }

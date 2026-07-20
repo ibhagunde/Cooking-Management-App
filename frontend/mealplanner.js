@@ -147,5 +147,9 @@ async function editMeal(day, meal) {
 
 }
 
+function goBack() {
+    window.location.href = "dashboard.html";
+}
+
 // Load everything when the page opens
 loadMeals();
