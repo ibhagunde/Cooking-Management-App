@@ -165,7 +165,7 @@ function formatIngredients(ingredients) {
         return "";
     }
 
-    return ingredients.join(", ");
+    return ingredients.join("\n");
 
 }
 

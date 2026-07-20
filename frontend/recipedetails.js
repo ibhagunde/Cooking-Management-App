@@ -27,16 +27,14 @@ async function loadRecipe() {
 
         const ingredientList =
             recipe.ingredients
-                .split(/,(?=\s*\d|\s*(?:more|piece|use))/)
-                .map(item =>
-                    item
-                        .replace(/\n/g, " ")
-                        .replace(/\s+/g, " ")
-                        .trim()
-                )
+                .split("\n")
+                .map(item => item.trim())
                 .filter(item => item !== "")
                 .map(item => `<li>${item}</li>`)
                 .join("");
+
+        document.getElementById("ingredients").innerHTML =
+            ingredientList;
 
         document.getElementById("ingredients").innerHTML =
             ingredientList;
