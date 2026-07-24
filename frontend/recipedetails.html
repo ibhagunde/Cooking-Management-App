@@ -2,80 +2,62 @@
 <html>
 <head>
     <title>Recipe Details</title>
-    <link rel="stylesheet" href="recipe-details.css">
+    <link rel="stylesheet" href="recipedetails.css">
 </head>
 
 <body>
 
 <div class="container">
 
-    <div class="recipe-header">
+    <button class="back-btn" onclick="history.back()">
+        ← Back
+    </button>
 
-        <h1 id="title">Loading...</h1>
+    <h1 id="title">Loading...</h1>
 
-    <div class="card description-card">
+    <h3>Recipe Information</h3>
 
-        <h3>Recipe Info</h3>
+    <div class="recipe-info">
 
-        <p>
-            <strong>Category:</strong>
-            <span id="category-info"></span>
-        </p>
-
-        <p>
-            <strong>Prep Time:</strong>
-            <span id="prep-time"></span>
-        </p>
-
-        <p>
-            <strong>Cook Time:</strong>
-            <span id="cook-time"></span>
-        </p>
-
-    </div>
-
-
-    <div class="recipe-grid">
-
-        <div class="card">
-
-            <h3>Ingredients</h3>
-
-            <ul id="ingredients"></ul>
-
+        <div class="info-card">
+            <h4>Category</h4>
+            <p id="category-info"></p>
         </div>
 
+        <div class="info-card">
+            <h4>Prep Time</h4>
+            <p id="prep-time"></p>
+        </div>
 
-        <div class="card">
-
-            <h3>Instructions</h3>
-
-            <ol id="instructions"></ol>
-
+        <div class="info-card">
+            <h4>Cook Time</h4>
+            <p id="cook-time"></p>
         </div>
 
     </div>
-
-
-    <div class="buttons">
-
         <button class="grocery-btn" onclick="addToGroceryList()">
-            Add to Grocery List
-        </button>
+        Add to Grocery List
+    </button>
 
-        <button class="back-btn" onclick="history.back()">
-            ← Back
-        </button>
+    <div class="card">
+
+        <h3>Ingredients</h3>
+
+        <ul id="ingredients" class="recipe-list"></ul>
+
+    </div>
+
+    <div class="card">
+
+        <h3>Instructions</h3>
+
+        <ol id="instructions" class="instruction-list"></ol>
 
     </div>
 
 </div>
 
-</div>
-
-    </div>
-
-    <script src="recipedetails.js"></script>
+<script src="recipedetails.js"></script>
 
 </body>
 </html>
