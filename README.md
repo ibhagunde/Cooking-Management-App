@@ -8,7 +8,7 @@
 - Anirudh Boosa
 
 ## Project Description
-A web application that allows users to manage recipes, create meal plans, and maintain grocery lists automatically.
+A web application that allows users to manage recipes, create meal plans, and maintain grocery lists all in one place
 
 ## Features
 - User registration and login
