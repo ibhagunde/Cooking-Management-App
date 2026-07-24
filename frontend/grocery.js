@@ -162,4 +162,35 @@ function goBack() {
     window.location.href = "dashboard.html";
 }
 
+async function clearList() {
+
+    const confirmDelete = confirm(
+        "Are you sure you want to clear your grocery list?"
+    );
+
+    if (!confirmDelete) {
+        return;
+    }
+
+    try {
+
+        await fetch(
+            "http://localhost:3000/grocery",
+            {
+                method: "DELETE"
+            }
+        );
+
+        loadItems();
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+    }
+
+}
+
 loadItems();

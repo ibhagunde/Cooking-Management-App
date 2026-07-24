@@ -97,6 +97,32 @@ router.delete("/:id", (req, res) => {
 
 });
 
+router.delete("/", (req, res) => {
+
+    try {
+
+        db.prepare(`
+            DELETE FROM GroceryItems
+        `).run();
+
+        res.json({
+            message: "Grocery list cleared!"
+        });
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        res.status(500).json({
+            error: "Failed to clear grocery list."
+        });
+
+    }
+
+});
+
 router.put("/:id", (req, res) => {
 
     try {
