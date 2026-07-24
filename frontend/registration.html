@@ -13,6 +13,16 @@
         <input type="password" id="password" placeholder="Password">
         <input type="password" id="confirm" placeholder="Confirm Password">
 
+        <div class="show-password">
+            <label>
+                <input
+                    type="checkbox"
+                    onclick="togglePassword()"
+                >
+                Show Password
+            </label>
+        </div>
+
         <button onclick="register()">Register</button>
 
         <p id="message"></p>

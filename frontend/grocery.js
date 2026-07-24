@@ -28,7 +28,7 @@ function renderList() {
 
     list.innerHTML = "";
 
-    items.forEach(item => {
+    [...items].reverse().forEach(item => {
 
         const div = document.createElement("div");
 

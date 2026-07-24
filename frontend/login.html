@@ -11,6 +11,16 @@
         <input type="email" id="email" placeholder="Email">
         <input type="password" id="password" placeholder="Password">
 
+        <div class="show-password">
+            <label>
+                <input
+                    type="checkbox"
+                    onclick="togglePassword()"
+                >
+                Show Password
+            </label>
+        </div>
+
         <button onclick="login()">Login</button>
 
         <p id="message"></p>

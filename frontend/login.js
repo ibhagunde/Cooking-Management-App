@@ -44,3 +44,21 @@ async function login() {
         message.innerText = "Unable to connect to server.";
     }
 }
+
+function togglePassword() {
+
+    const password = document.getElementById("password");
+    const confirm = document.getElementById("confirm");
+
+    const newType =
+        password.type === "password"
+            ? "text"
+            : "password";
+
+    password.type = newType;
+
+    if (confirm) {
+        confirm.type = newType;
+    }
+
+}
