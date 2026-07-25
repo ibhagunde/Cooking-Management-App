@@ -4,8 +4,6 @@
 - Ishani Bhagunde
 - Oluwaseun Okuneye
 - Falis Gaal
-- Damian Mercado
-- Anirudh Boosa
 
 ## Project Description
 A web application that allows users to manage recipes, create meal plans, and maintain grocery lists all in one place
